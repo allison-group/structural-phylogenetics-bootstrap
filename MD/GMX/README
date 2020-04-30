@@ -1,0 +1,2 @@
+# RUN s1.sh to prep system
+# RUN s2.sh to do equilibration + production

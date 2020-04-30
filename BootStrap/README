@@ -1,0 +1,41 @@
+# Place trajectories (.gro) and structure (.xtc) files in Trajectories
+# Run BS_master_sort.py
+# This script will create a Trials folder inside Trajectories (make sure a folder by that name doesn't exist in it).
+# N_trial number of empty folders will be created inside the Trials directory
+# Inside Trajectories/Trials/ a .val file will be created for each taxon with N_trial number of uniformly distributed 
+# random numbers between 0 and 10,000. If the trajectory has nmore than 10,000 frames adjust the number in line 32 accordingly. 
+# The script will also run BS_slave.tcl through vmd - which will for each .gro file extract the N_trial conformations 
+# indicated by the numbers in .val for each taxon and place it in the appropriate trial_# folder. 
+
+
+# Now run BS_secondary_run.py
+# It will count the number of cores, and leaving one free, set up the job/shell files. 
+# if N_trials = 100 and 10 cores are available for usage then 10 shell files will be created - each with ten sets of the following
+#
+# 1) cd Trajectories/Trial/trial_#      	// Enter a trial folder
+# 2) ./run_superpose_pair_directly.py 		// do all by all comparison
+# 3) ./qPairs2list.py				// parse comparison results to list scores
+# 4) ./Qscore_2_Mx.py				// converts scores to matrix form
+# 5) ./Mx2nj.py					// convert matrix to a phylogenetic tree
+# 
+# The shell files will help automate the routine.
+# Once all jobs are completes, a tree file will be present in each trail folder. 
+# Collect all of them to an appropriate location (X). 
+#
+# Generate a reference tree
+# 
+# Copy the reference PDB to Reference directory
+# Run the script s1.py which should 
+# run all the scripts in proper order. 
+# 
+# A reference tree file will be created. Move this tree to location above (X).
+
+
+# Now using sumtrees, use trial trees to sum statistics on the reference tree. 
+# Note that the taxon names should be identical between all trials and the reference. 
+# sumtrees.py -d0 -p -o OutputTree -t ReferenceTree *.nex
+# where OutputTree is the name of the output tree created with support values
+# ReferenceTree is the tree for which the support values are calculated
+# *.nex --- this short hand can be used instead of explicitly listing each tree. Please note that location X should 
+# have only a reference tree with a suffix other then nex e.g. Ref.tree and the 100 trial trees which have the suffix .nex. 
+The OutputTree can now be visualised using any standard tree visualisation program e.g. SplitsTree (for tree / network) or Figtree. 

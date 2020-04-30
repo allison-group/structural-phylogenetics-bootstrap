@@ -1,0 +1,5 @@
+# For a given input pdb "input_1.pdb" -- the following command would run 5 parallel threads
+# In each it would run through 5 million iterations saving a snapshot on every 10,000th iteration
+# at the end resulting in 500 conformations per thread or a total of 2,500 conformations over 5 threads.
+
+phaistos --mode opls-mc-dynamics --pdb-file input_1.pdb --init-from-pdb --iterations 5000000 --observable pdb[register-interval:10000] --threads 5
