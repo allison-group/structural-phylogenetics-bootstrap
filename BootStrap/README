@@ -31,7 +31,8 @@
 # A reference tree file will be created. Move this tree to location above (X).
 
 
-# Now using sumtrees, use trial trees to sum statistics on the reference tree. 
+# Now using sumtrees, use trial trees to sum statistics on the reference tree. Refer to the dendroPy documentation to setup sumtrees 
+# (https://dendropy.org/programs/sumtrees.html)
 # Note that the taxon names should be identical between all trials and the reference. 
 # sumtrees.py -d0 -p -o OutputTree -t ReferenceTree *.nex
 # where OutputTree is the name of the output tree created with support values
